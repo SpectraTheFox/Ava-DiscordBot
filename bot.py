@@ -57,7 +57,7 @@ async def help_listener(inter: disnake.MessageInteraction):
         embed = disnake.Embed(title="Moderation Commands", description="These are the Moderation Commands!", color=0x00ff00)
         embed.add_field(name="Ban", value="Bans a user from the server!", inline=False)
         embed.add_field(name="Kick", value="Kicks a user from the server!", inline=False)
-
+        embed.add_field(name="Vote", value="Have People Vote For Something!", inline=False)
         await inter.response.send_message(embed=embed, ephemeral=True)
 
     if inter.component.custom_id == "fun":
