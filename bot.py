@@ -19,13 +19,13 @@ async def on_ready():
     while True:
         statusNum = random.randint(1, 4)
         if statusNum == 1:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name= ' over the server'))
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name= ' You give me commands UwU'))
         elif statusNum == 2:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name = " /help"))
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name = " /help OwO"))
         elif statusNum == 3:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.playing, name = " games with friends"))
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.playing, name = " games with friends OwO"))
         elif statusNum == 4:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name = " Some random anime"))
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name = " Some random anime UwU"))
         await asyncio.sleep(50)
 
 
@@ -71,6 +71,7 @@ async def help_listener(inter: disnake.MessageInteraction):
         embed.add_field(name="mental", value="Tells everyone your mental state!")
         embed.add_field(name="eightball", value="A (maybe insulting) 8Ball!")
         embed.add_field(name="kill", value="Kill your friends, requires you at @ someone")
+        embed.add_field(name="owoify", value="OwOify your text or username!")
         await inter.response.send_message(embed=embed, ephemeral=True)
 
     if inter.component.custom_id == "games":

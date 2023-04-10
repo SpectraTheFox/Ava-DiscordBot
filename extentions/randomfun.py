@@ -1,5 +1,21 @@
+import disnake
 from disnake.ext import commands
 import random
+import openai
+
+def askGPT(question):
+    openai.api_key = open("api_key.txt", "r").read()
+    response = openai.Completion.create(
+        engine="gpt-3.5-turbo",
+        prompt=question,
+        temperature=0.9,
+        max_tokens=150,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0.6,
+    )
+    return response.choices[0].text
+
 
 validanswers = ["yes", "Yes", "no", "No", "n", 'N', "Y", "y"]
 yes = ["Yes", "yes", "Y", "y"]
@@ -25,21 +41,21 @@ class FunCog(commands.Cog):
         await inter.response.send_message(f"The coin flipped and landed {flipside}")
 
     @commands.slash_command(description="Kills a user with a random weapon.")
-    async def kill(self, inter, user):
+    async def kill(self, inter, user: disnake.Member):
         weapon=("Knife", "Gun", "Sword")
         await inter.response.send_message(inter.author.mention + f" Killed {user} with a {random.choice(weapon)}")
 
     @commands.slash_command(description="Stabs a user with a knife.")
-    async def stab(self, inter, user):
+    async def stab(self, inter, user: disnake.Member):
         await inter.response.send_message(f"{inter.author.mention} Just stabbed {user}")
         
     @commands.slash_command(description="Insults a user.")
-    async def insult(self, inter, user):
+    async def insult(self, inter, user: disnake.Member):
         insults = ("Screw you", "You are a jerk", "You suck", "OH NO ITS", "Ugh, its", "EVERYBODY GET OUT, ITS", "Deal with it", "Frick you ", "GDIAH ", "small pp ")
         await inter.response.send_message(f"{random.choice(insults)} {user}")
         
     @commands.slash_command(description="Compliments a user")
-    async def compliment(self, inter, user):
+    async def compliment(self, inter, user: disnake.Member):
         compliments = ("Is Looking nice today", "Is Awesome", "Is a good person", "Is nice", "Is A cool person", "Isn't an idiot", "Needs to talk more")
         await inter.response.send_message(f"{user} {random.choice(compliments)}")
         
@@ -59,6 +75,29 @@ class FunCog(commands.Cog):
                 'I dont care you piece of shit',
                 'Ok The answer is FUCK yes.', ]
         await inter.response.send_message(f"Question: {question}\nAnswer: " + random.choice(possible_responses) + ", " + inter.author.mention)
+    
+    @commands.slash_command(description="Uses GPT-3 to answer your question")
+    async def chatgpt(self, inter, question):
+        await inter.response.send_message("Please wait...")
+
+        await inter.edit_original_response(askGPT(question))
+    
+    @commands.slash_command(description="OwO-ifys your text")
+    async def owoify(self, inter, text=""):
+        if text == "":
+            text = inter.author.name
+        else:
+            pass
+        text = text.replace("r", "w")
+        text = text.replace("l", "w")
+        text = text.replace("R", "W")
+        text = text.replace("L", "W")
+        text = text.replace("ove", "uv")
+        text = text.replace("OVE", "UV")
+        text = text.replace("o", "ow")
+        text = text.replace("O", "OW")
+        await inter.response.send_message(text)
+
 
 def setup(bot):
     bot.add_cog(FunCog(bot))
