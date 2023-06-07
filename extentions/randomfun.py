@@ -1,21 +1,6 @@
 import disnake
 from disnake.ext import commands
 import random
-import openai
-
-def askGPT(question):
-    openai.api_key = open("api_key.txt", "r").read()
-    response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
-        prompt=question,
-        temperature=0.9,
-        max_tokens=150,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0.6,
-    )
-    return response.choices[0].text
-
 
 validanswers = ["yes", "Yes", "no", "No", "n", 'N', "Y", "y"]
 yes = ["Yes", "yes", "Y", "y"]
@@ -75,12 +60,6 @@ class FunCog(commands.Cog):
                 'I dont care you piece of shit',
                 'Ok The answer is FUCK yes.', ]
         await inter.response.send_message(f"Question: {question}\nAnswer: " + random.choice(possible_responses) + ", " + inter.author.mention)
-    
-    @commands.slash_command(description="Uses GPT-3 to answer your question")
-    async def chatgpt(self, inter, question):
-        await inter.response.send_message("Please wait...")
-
-        await inter.edit_original_response(askGPT(question))
     
     @commands.slash_command(description="OwO-ifys your text")
     async def owoify(self, inter, text=""):
