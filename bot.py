@@ -19,13 +19,13 @@ async def on_ready():
     while True:
         statusNum = random.randint(1, 4)
         if statusNum == 1:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name= ' You give me commands UwU'))
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name= ' you give me commands UwU'))
         elif statusNum == 2:
             await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name = " /help OwO"))
         elif statusNum == 3:
             await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.playing, name = " games with friends OwO"))
         elif statusNum == 4:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name = " Some random anime UwU"))
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name = " some random anime UwU"))
         await asyncio.sleep(50)
 
 

@@ -73,8 +73,6 @@ class FunCog(commands.Cog):
         text = text.replace("L", "W")
         text = text.replace("ove", "uv")
         text = text.replace("OVE", "UV")
-        text = text.replace("o", "ow")
-        text = text.replace("O", "OW")
         await inter.response.send_message(text)
 
 
