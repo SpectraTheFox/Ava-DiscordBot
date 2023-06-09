@@ -1,10 +1,7 @@
 import disnake
-import os
 import asyncio
 from disnake.ext import commands
 import random
-
-
 
 INTENTS = disnake.Intents.all()
 TOKEN = open("token.txt", "r").read()
@@ -17,22 +14,31 @@ client.load_extension("extentions.randomfun")
 async def on_ready():
     print("Bot is ready!")
     while True:
-        statusNum = random.randint(1, 4)
+        statusNum = random.randint(1, 5)
         if statusNum == 1:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name= ' you give me commands UwU'))
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name= ' for your commands'))
         elif statusNum == 2:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name = " /help OwO"))
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name = " /help"))
         elif statusNum == 3:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.playing, name = " games with friends OwO"))
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.playing, name = " games with friends"))
         elif statusNum == 4:
-            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name = " some random anime UwU"))
-        await asyncio.sleep(50)
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name = " some random anime"))
+        elif statusNum == 5:
+            await client.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name = " to some awesome music"))
+        await asyncio.sleep(60)
 
 
 
 @client.slash_command(description="Says Hello!")
 async def hello(inter):
     await inter.response.send_message("Hello!")
+
+@client.slash_command(description="Shuts Down the bot")
+@commands.is_owner()
+async def shutdown(inter):
+    await inter.response.send_message("Shutting Down. Goodbye.")
+    await client.close()
+    print("Bot Shut Down")
 
 @client.slash_command(description="Sends the command list!")
 async def help(inter):
@@ -57,7 +63,6 @@ async def help_listener(inter: disnake.MessageInteraction):
         embed = disnake.Embed(title="Moderation Commands", description="These are the Moderation Commands!", color=0x00ff00)
         embed.add_field(name="Ban", value="Bans a user from the server!", inline=False)
         embed.add_field(name="Kick", value="Kicks a user from the server!", inline=False)
-        embed.add_field(name="Vote", value="Have People Vote For Something!", inline=False)
         await inter.response.send_message(embed=embed, ephemeral=True)
 
     if inter.component.custom_id == "fun":

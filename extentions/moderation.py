@@ -6,14 +6,6 @@ class moderation(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.slash_command(description="Have People Vote For Something!")
-    async def vote(self, ctx, *, tovote):
-        await ctx.channel.purge(limit=1)
-        message = await ctx.send(f"@everyone Vote for: {tovote}")
-        await message.add_reaction('\U0001F44D')
-        await message.add_reaction('\U0001F44E')
-        
-
     @commands.slash_command(description="Bans a user from the server!")
     @commands.has_permissions(ban_members = True)
     async def ban(inter, member : disnake.Member, *, reason = None):
